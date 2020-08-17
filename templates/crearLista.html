@@ -1,0 +1,13 @@
+{%extends 'base_modal.html'%}
+{%block id_modal%}modalCrearLista{%endblock%}
+{%block titulo_modal%}Nueva lista{%endblock%}
+{%block body_modal%}
+    <form action="/crearLista" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">Nombre:</label>
+            <input type="text" class="form-control" id="nueva_lista" name="nueva_lista" required>
+        </div>
+        <button class="btn btn-primary">Crear</button>
+    </form>
+{%endblock%} 

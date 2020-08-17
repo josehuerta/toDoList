@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+   
+</head>
+<body class="h-100">
+    <div class="container-fluid bg-light h-100">
+        <div class="row d-md-flex flex-md-row-reverse">
+            <div class="col-md-6 col-lg-6">
+
+                <div class="row bg-white justify-content-center pt-3 pb-3 rounded row-md-5 m-5 shadow rounded">
+                    <div class="col-8 col-md-7">
+                            <h2>Planea, anota y realiza tus tareas</h2>
+                    
+                            <form action="/iniciarSesion" method="POST">
+                                {% csrf_token %}
+                                
+                                <div class="form-group">
+                                    <label for="">Correo electronico:</label>
+                                    <input type="text" name="email_usr" id="email_usr" class="form-control" placeholder="ejemplo@mail.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Password:</label>
+                                    <input type="password" name="password_usr" id="password_usr" class="form-control" placeholder="password">
+                                </div>
+                            
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                            
+                            </form>
+                            
+                            <div class="row pt-5 justify-content-center">
+                                <span>No tienes una cuenta?</span>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                                    Registrate    
+                                </button>
+                            </div>
+
+                    </div>
+                    
+                </div>
+                
+                
+          
+            
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="row bg-white justify-content-center shadow m-5 rounded">
+                
+                    <h1 class="text-primary pt-3 font-weight-bold">TO DO LIST</h1>
+                    <div class="col-md-10 col-lg-10 pt-1 pb-3 mt-5">
+                        <h5><i class="fas fa-check"></i> Agrega, organiza y programa tus tareas desde el teléfono o la PC.</h5>
+                    </div>
+                    <div class="col-md-10 col-lg-10 pt-3 pb-3 text-justify">
+                        <h5><i class="fas fa-check"></i> Establece fechas de vencimiento para asegurarte de que no volverás a olvidar fechas importantes (ni de comprar los regalos de cumpleaños).</h5>
+                    </div>
+                    <div class="col-md-10 col-lg-10 pt-3 pb-3">
+                        <h5><i class="fas fa-check"></i> Crea listas para ordenar las tareas del hogar, de trabajo y todo lo demás.</h5>
+                    </div>
+                    <div class="col-md-10 pt-3 pb-3 text-justify">
+                        <h5><i class="fas fa-check"></i> Mantente productivo desde cualquier lugar, pues nunca mas olvidaras tus deberes.</h5>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Crear cuenta</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+          
+
+                <div class="modal-body">
+                    <form action="/crearUsuario" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="">Nombre(s):</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Apellido(s):</label>
+                            <input type="text" name="apellido" id="apellido" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email:</label>
+                            <input type="email" name="email_reg" id="email_reg" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Password:</label>
+                            <input type="password" name="password_reg" id="password_reg" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Repetir password:</label>
+                            <input type="password" name="rep_password_reg" id="rep_password_reg" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary pd">Crear cuenta</button>
+                    </form>
+                </div>             
+          
+              </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    <script src="https://kit.fontawesome.com/e9d74fddcc.js" crossorigin="anonymous"></script>
+</body>
+</html>

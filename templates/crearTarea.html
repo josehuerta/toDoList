@@ -1,0 +1,39 @@
+{%extends 'base_modal.html'%}
+
+{%block id_modal%}myModal{%endblock%}
+
+{%block titulo_modal%}Crear tarea{%endblock%}
+  
+
+{%block body_modal%}
+        <form action="/crearTarea" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="">Tarea:</label>
+                <input type="text" class="form-control" id="tarea" name="tarea" required>
+            </div>
+            <div class="form-group">
+                <label for="">Fecha de vencimiento:</label>
+                <input type="datetime-local" name="fecha" id="fecha" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="">Relevancia:</label>
+                <select name="relevancia" id="relevancia" class="form-control col-md-6">
+                    {%for relevancia in relevancias%}
+                    <option value="{{relevancia.id}}" id="">{{relevancia.reelevancia_tipo}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            
+            <div class="form-group">
+            <label for="">Lista:</label>
+            <select name="lista" id="lista" class="form-control col-md-6">
+                {%for lista in listas%}
+                <option value="{{lista.id}}" id="">{{lista.nombre_lista}}</option>
+                {%endfor%}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+{%endblock%} 

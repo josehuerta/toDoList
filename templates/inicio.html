@@ -1,0 +1,226 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+      
+      $(document).ready(function(){
+        $('div.card').dblclick(function(){
+          let id=$(this).attr('id')
+          
+          let divCard=document.getElementById(id).getElementsByTagName("*")
+          
+          let relevancia=divCard[0].classList[3]
+          
+          let tarea=divCard[4].innerText
+          let fecha=divCard[8].value
+          
+          let n_tarea=document.getElementById('tarea_ed')
+          let n_fecha=document.getElementById('fecha_ed')
+          let n_relevancia=document.getElementById('relevancia_ed')
+          let formulario=document.getElementById('formEditarTarea')
+          let variable='editarTarea/'+id+'/'
+          formulario.action=variable
+
+
+          if (relevancia=='bg-primary'){
+            n_relevancia[0].selected='selected'
+          }
+          else if (relevancia=='bg-warning'){
+            n_relevancia[1].selected='selected'
+          }
+          else{
+            n_relevancia[2].selected='selected'
+          }
+          
+          n_tarea.value=tarea
+          n_fecha.value=fecha
+          
+          $("#modalEditarTarea").modal()
+        })
+      })
+      
+    </script>
+    
+</head>
+<body class="bg-light">
+    <div class="container-fluid ">
+        <!--HEADER-->
+        <div class="row  pt-1 pb-1 bg-primary text-white">
+            <div class="col-sm-9 col-md-10">
+                <h2>!To do list!</h3>
+            </div>
+
+            <div class="col-sm-3 col-md-2 pt-1 text-right">
+                  <h4>
+                          <i class="fas fa-user-cog " id="dropdownMenu2" data-toggle="dropdown">{{usuario.nombre}}</i>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <a href="#modalEditarCuenta" data-target="#modalEditarCuenta" data-toggle="modal" class="btn dropdown-item">Editar</a>
+                            <a href="#modalEliminarCuenta" data-target="#modalEliminarCuenta" data-toggle="modal" class="btn dropdown-item">Eliminar</a>
+                          
+                          </div>
+                          <a href="/salir"><i class="fas fa-sign-out-alt text-white"></i></a>
+                  </h4>
+              
+            </div>
+            
+
+        </div>
+        
+        
+        <div class="row">
+          <!--MENU-->
+          <div class="col-md-2 pt-2 border-right bg-white">
+              <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+                <li class="nav-item">
+                  
+                    <a href="#mymodal" data-target="#myModal" data-toggle="modal" class="nav-link" role="tab" aria-controls="profile" aria-selected="false">
+                      <i class="fas fa-plus-circle">Nueva tarea </i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mi lista</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Importantes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Urgentes</a>
+                </li>
+                <li class="nav-item pt-3">
+                  
+                  <a href="#modalCrearLista" data-target="#modalCrearLista" data-toggle="modal" class="nav-link" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-plus-circle">Nueva lista </i>
+                  </a>
+                </li>
+
+                {%for lista in listas%}
+                  {%if lista.nombre_lista != 'Mi lista'%}
+                    <li class="nav-item align-content-start">
+                        
+                        <a class="nav-link" id="{{lista.nombre_lista}}-tab" data-toggle="tab" href="#{{lista.nombre_lista}}" role="tab" aria-controls="{{lista.nombre_lista}}" aria-selected="false">{{lista.nombre_lista}} </a>
+                        <a href="{%url 'eliminarLista' lista.id%}" class="btn btn-danger close p-1 text-white nav-link">&times;</a>
+                        
+                    </li>
+                  {%endif%}
+                {%endfor%}
+
+
+                
+              </ul>
+          </div>
+          <!--CONTENT-->
+          <div class="col-md-10 p-1">
+            <div class="tab-content row p-0 m-0" id="myTabContent">
+                <div class="tab-pane fade show active col-md-12 p-0 m-0" id="home" role="tabpanel" >
+                  <div class="row p-0 m-0">
+                  {%for tarea in mis_tareas%}
+                        
+                  <div class="card col-md-3 m-0 p-1 col-sm-6" id="{{tarea.id}}">
+                    
+                    <div class="card-header p-1 text-white {%if tarea.reelevancia_id == 1%}
+                                                            bg-primary 
+                                                            {%elif tarea.reelevancia_id == 2%}
+                                                            bg-warning
+                                                            {%else%}
+                                                            bg-danger
+                                                            {%endif%}">
+                        <h5>Tarea {{forloop.counter}}:
+                          <a href="{%url 'eliminarTarea' tarea.id%}" class="btn btn-danger close p-1 text-white">&times;</a>
+                        </h5>
+            
+                    </div>
+                      <div class="card-body p-2" name="cardBody">
+                        <p class="card-text" name="contenidoTareaSeleccionada">{{tarea.tarea}}</p>
+                        <div class="card-footer p-0">
+                          <p>Fecha de vencimiento: 
+                            <br>
+                            <input type="datetime-local" id="fecha" value="{{tarea.fecha_vencimiento}}" 
+                            disabled="disabled" class="p-0 m-0 w-100 border-0" name="fechaTareaSeleccionada">
+                          </p>
+                          
+                        </div>
+                      </div>
+                  </div>
+                  
+                  {%endfor%}
+                </div>
+                </div>
+
+                {%for lista in listas%}
+                  {%if lista.nombre_lista != 'Mi lista'%}
+
+                    
+                    <div class="tab-pane fade col-md-10 p-0 m-0 col-md-12 p-0 m-0" id="{{lista.nombre_lista}}" role="tabpanel"aria-labelledby="{{lista.nombre_lista}}-tab" >
+                      
+                      <div class="row p-0 m-0">
+                      {%for tarea in tareas%}
+                          {%if tarea.lista_id == lista.id%}
+                          <div class="card col-md-3 m-0 p-1 col-sm-6" id="{{tarea.id}}">
+                            
+                            <div class="card-header p-1 text-white {%if tarea.reelevancia_id == 1%}
+                                                                    bg-primary 
+                                                                    {%elif tarea.reelevancia_id == 2%}
+                                                                    bg-warning
+                                                                    {%else%}
+                                                                    bg-danger
+                                                                    {%endif%}">
+                                <h5>Tarea :
+                                  <a href="{%url 'eliminarTarea' tarea.id%}" class="btn btn-danger close p-1 text-white">&times;</a>
+                                </h5>
+                    
+                            </div>
+                              <div class="card-body p-2" name="cardBody">
+                                <p class="card-text" name="contenidoTareaSeleccionada">{{tarea.tarea}}</p>
+                                <div class="card-footer p-0">
+                                  <p>Fecha de vencimiento: 
+                                    <br>
+                                    <input type="datetime-local" id="fecha"
+                                    value="{{tarea.fecha_vencimiento}}" disabled="disabled" 
+                                    class="p-0 m-0 border-0" name="fechaTareaSeleccionada">
+                                  </p>
+          
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            {%endif%}
+                      
+                        {%endfor%}
+                      </div>
+                    </div>
+
+                  {%endif%}
+                {%endfor%}<!--for-->
+
+                
+            </div>
+          </div>
+        <!-- /.col-md-8 -->
+        </div>
+      
+        <!--VENTANA MODAL, CREAR TAREA-->
+        {%include 'crearTarea.html'%}
+        <!--VENTANA MODAL, CREAR TAREA-->
+        {%include 'editarTarea.html'%}
+        <!--VENTANA MODAL, EDITAR USUARIO-->
+        {%include 'editarUsuario.html'%}
+        <!--VENTANA MODAL, ELIMINAR USUARIO-->
+        {%include 'eliminarUsuario.html'%} 
+        
+        <!--VENTANA MODAL, CREARLISTA-->
+        {%include 'crearLista.html'%} 
+        
+      
+
+    </div>
+
+    <script src="https://kit.fontawesome.com/e9d74fddcc.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

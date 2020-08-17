@@ -1,0 +1,12 @@
+{%extends 'base_modal.html'%}
+{%block id_modal%}modalEliminarCuenta{%endblock%}
+{%block titulo_modal%}Eliminar cuenta{%endblock%}
+{%block body_modal%}
+<p>
+    Toda tu informacion sera eliminada de forma definitiva y no habra manera de recuperarla.
+</p>
+{%endblock%}
+{%block footer_modal%}
+    <a href="{%url 'eliminarUsuario' usuario.id%}" class="btn btn-primary">Eliminar</a>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+{%endblock%}  

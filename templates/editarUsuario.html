@@ -1,0 +1,35 @@
+{%extends 'base_modal.html'%}
+{%block id_modal%}modalEditarCuenta{%endblock%}
+{%block titulo_modal%}Editar cuenta{%endblock%}
+{%block body_modal%}
+    <form action="{%url 'editarUsuario' usuario.id %}" method="POST" class="mb-0">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">Nombre(s):</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" required value="{{usuario.nombre}}">
+        </div>
+        <div class="form-group">
+            <label for="">Apellido(s):</label>
+            <input type="text" name="apellido" id="apellido" class="form-control" required value="{{usuario.apellidos}}">
+        </div>
+        <div class="form-group">
+            <label for="">Password (necesaria para guardar cambios):</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+        
+        <div class="card card-header p-0">
+            <h3 class="btn btn-link" href="#card1" data-toggle="collapse">Editar password</h3>
+        </div>
+        <div class="collapse" id="card1">
+                <div class="form-group">
+                    <label for="">Nuevo password:</label>
+                    <input type="password" name="n_password" id="n_password" class="form-control">
+                </div>
+            
+        </div>
+        
+        
+        <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+    </form>
+
+{%endblock%}     

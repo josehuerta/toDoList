@@ -1,0 +1,22 @@
+<div class="modal" id="{%block id_modal%} {%endblock%}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+  
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">{%block titulo_modal%}{%endblock%}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <div class="modal-body">
+                {%block body_modal%}
+                {%endblock%}    
+            </div>
+            
+            <div class="modal-footer">
+                {%block footer_modal%}
+                {%endblock%}
+              </div>
+        </div>
+    </div>
+</div>
